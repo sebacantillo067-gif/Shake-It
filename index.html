@@ -3955,38 +3955,7 @@ function generateCertificate(){
 }
 
 /* ═════════════════════════ CHAT ════════════════════════════ */
-function toggleChat(){
-  const p=document.getElementById('chat-panel'),fb=document.getElementById('lia-float-bubble');
-  S.chatOpen=!S.chatOpen;
-  p.classList.toggle('open',S.chatOpen);
-  fb.classList.remove('show');
-  if(S.chatOpen&&document.getElementById('chat-msgs').children.length===0){
-    addCMsg('lia',`¡Hola ${S.nombre||'bailarín'}! Soy Lía, tu instructora de danza. Pregúntame sobre cualquier danza colombiana, pídeme que te recomiende música o explícame un paso. ¿En qué te ayudo? 💃`);
-  }
-}
-function addCMsg(who,txt){
-  const c=document.getElementById('chat-msgs');if(!c)return;
-  const d=document.createElement('div');
-  d.className=who==='lia'?'msg-lia':'msg-user';d.textContent=txt;
-  c.appendChild(d);c.scrollTop=c.scrollHeight;
-  if(who==='lia')speak(txt);
-}
-async function sendChat(){
-  const inp=document.getElementById('chat-inp');
-  const msg=inp.value.trim();if(!msg)return;
-  inp.value='';addCMsg('user',msg);
-  const ty=document.createElement('div');ty.className='msg-lia';ty.id='ty-msg';ty.innerHTML='<span style="opacity:.45">Lía escribe…</span>';
-  document.getElementById('chat-msgs').appendChild(ty);
-  const g=S.gData;
-  const prompt=`Eres Lía, instructora de danza folclórica colombiana. Tu voz es suave, clara y cálida. Eres amigable, paciente y entusiasta. Hablas de forma sencilla para que niños y jóvenes te entiendan fácilmente.
-El estudiante se llama ${S.nombre||'estudiante'} y está aprendiendo ${g?.name||'danza colombiana'} (región ${g?.region||'Colombia'}, ${g?.bpm||100} BPM).
-Emoción actual: ${S.emotion||'exploración'}.
-Pregunta: "${msg}"
-Responde en máximo 55 palabras. Tono cercano, con emojis moderados. Solo la respuesta.`;
-  const res=await callAI(prompt);
-  document.getElementById('ty-msg')?.remove();
-  addCMsg('lia', res || ('Buena pregunta sobre ' + (g?.name||'la danza') + '. Lo mas importante es sentir el ritmo y dejar que el cuerpo se mueva naturalmente.'));
-}
+
 
 /* ═════════════════════════ GAMIFICATION ════════════════════ */
 function addXP(amt,msg){
